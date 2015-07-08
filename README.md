@@ -1,4 +1,4 @@
 CGODEditor
 ==========
 
-custom god editor for Elona omake_overhaul
+Custom God Editor for Elona omake_overhaul.
