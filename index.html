@@ -8,17 +8,28 @@
   
   <h1>Custom God Editor</h1>
 
-  <!-- place the custom tag anywhere inside the body -->
+  <app-header></app-header>
+  
   <spec></spec>
 
-  <!-- include riot.js -->
   <script src="riot.min.js"></script>
 
-  <!-- include the tag -->
+  <script src="app-header.js"></script>
   <script src="spec.js"></script>
 
-  <!-- mount the tag -->
-  <script>riot.mount('*')</script>
+  <script>
+    var tab = riot.observable()
+    
+    tab.change = function(params) {
+      tab.trigger('change', params)
+    }
+  
+    riot.mount('*', tab)
+    
+    tab.change({
+      current: "Spec"
+    })
+  </script>
 
   </body>
 </html>
