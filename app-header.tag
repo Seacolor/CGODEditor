@@ -2,13 +2,19 @@
   <header>
     <nav>
       <ul>
-        <li><a href="#" onclick={ changeTab }>Spec</a></li>
-        <li><a href="#" onclick={ changeTab }>Optional</a></li>
-        <li><a href="#" onclick={ changeTab }>Text</a></li>
-    </ul>
+        <li each={ TABS }>
+          <a href="#" onclick={ parent.changeTab }>{ name }</a>
+        </li>
+      </ul>
     </nav>
   </header>
   <script>
+    this.TABS = [
+			{ name: "Spec" },
+      { name: "Optional" },
+      { name: "Text" }
+    ]
+    
     changeTab(e) {
       opts.change({
         current: e.target.text
