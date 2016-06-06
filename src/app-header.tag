@@ -1,11 +1,11 @@
 <app-header>
   <header>
     <nav>
-      <ul>
-        <li each={ TABS }>
-          <a href="#" onclick={ parent.changeTab }>{ name }</a>
-        </li>
-      </ul>
+      <btn-group>
+        <btn each={ TABS } onclick={ parent.changeTab }>
+          { name }
+        </btn>
+      </btn-group>
     </nav>
   </header>
   <script>
@@ -14,10 +14,10 @@
       { name: "Optional" },
       { name: "Text" }
     ]
-    
+
     changeTab(e) {
       opts.change({
-        current: e.target.text
+        current: e.target.firstChild.textContent
       })
     }
   </script>
