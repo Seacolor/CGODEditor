@@ -17,7 +17,7 @@
 
     changeTab(e) {
       opts.change({
-        current: e.target.firstChild.textContent
+        current: e.item.name
       })
     }
   </script>
