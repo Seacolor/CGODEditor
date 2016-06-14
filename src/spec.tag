@@ -1,7 +1,7 @@
 <spec>
   <section show={ is_current }>
     <h2>Spec</h2>
-    
+
     <form>
       <fieldset>
         <label for="author">Author: </label>
@@ -57,7 +57,7 @@
         </div>
         <div>
           <label for="specialpoweralias">Alias: </label>
-          <input type="text" name="specialpoweralias" onkeyup={ editValue } value={ spec.specialpoweralias.value }>
+          <input type="text" name="specialpoweralias" onkeyup={ edit } value={ spec.specialpoweralias.value }>
         </div>
         <div>
           <label for="specialpower">Potent: </label>
@@ -78,7 +78,7 @@
         <ul>
           <li each={ spec.foodbonus }>
             <button  type="button" list-name="foodbonus" onclick={ parent.remove }>Remove</button> { label }
-            <input type="number" list-name="foodbonus" onkeyup={ editListValue } min="1" max="5">
+            <input type="number" list-name="foodbonus" onChange={ editListValue } min="1" max="5">
           </li>
         </ul>
         <aside>大神七柱はボーナスが2つの場合は3、それ以上の場合は1。</aside>
@@ -91,14 +91,14 @@
         <ul>
           <li each={ spec.specialfoodbonus }>
             <button  type="button" list-name="specialfoodbonus" onclick={ parent.remove }>Remove</button> { label }
-            <input type="number" list-name="specialfoodbonus" onkeyup={ editListValue } min="1" max="1600">
+            <input type="number" list-name="specialfoodbonus" onChange={ editListValue } min="1" max="1600">
           </li>
         </ul>
         <aside>大神七柱は生命力/速度/マナは1600、それ以外は150。</aside>
       </fieldset>
     </form>
   </section>
-  
+
   <script>
     this.ITEMS = [
 			{id: 0, label: ""},
@@ -1134,7 +1134,7 @@
   		{id: 461, label: "復活"},
   		{id: 462, label: "契約"},
   		{id: 463, label: "四次元ポケット"},
-  		{id: 465, label: "メテオ"},	
+  		{id: 465, label: "メテオ"},
   		{id: 601, label: "吸血の牙"},
   		{id: 602, label: "炎のブレス"},
   		{id: 603, label: "冷気のブレス"},
@@ -1244,95 +1244,95 @@
       {id: 2030, label: "バッシュの発生率アップ"},
       {id: 2031, label: "地雷無効"}
     ]
-    
+
     this.is_current = false
-    
-    this.spec = {
-      author: "",
-      name_en: "",
-      name_ja: "",
-      id: "",
-      nickname: "",
-      give: [
-        {id: 204, label: "死体"}
-      ],
-      bonus: [],
-      specialpower: {value: "100 + {attb} / 5 + {faith} / 100"},
-      specialpoweralias: "",
-      foodbonus: [],
-      specialfoodbonus: []
-    }
+
+    this.spec = opts.spec
     this.giveFilterText = ""
     this.specialpowerFilterText = ""
-    
+
     edit(e) {
       this.spec[e.target.name] = e.target.value
     }
-    
+
+    editValue(e) {
+      this.spec[e.target.name].value = e.target.value
+    }
+
     add(e) {
       var selectedItem = e.target.options[e.target.selectedIndex]
-      
+
       if (selectedItem.value == 0) {
         return
       }
-      
+      if (e.target.name == "bonus") {
+        if (this.spec.bonus.length >= 10) {
+          return;
+        }
+      }
+      if (e.target.name == "foodbonus") {
+        if (this.spec.foodbonus.length >= 8) {
+          return;
+        }
+      }
+
       this.spec[e.target.name].push({ id: selectedItem.value, label: selectedItem.text })
     }
-    
+
     editFilter(e) {
       var selectName = e.target.getAttribute("select-name")
       this[selectName].selectedIndex = 0
       this[selectName + "FilterText"] = e.target.value
     }
-    
+
     giveFilter(item) {
       return this.filter(item, "giveFilterText")
     }
-    
+
     specialpowerFilter(item) {
       return this.filter(item, "specialpowerFilterText")
     }
-    
+
     filter(item, filterName) {
       if (this[filterName]) {
         if (item.id === 0) return true
         if (item.label.indexOf(this[filterName]) === -1) return false
       }
-      
+
       return true
     }
-    
+
     remove(e) {
       var list = this.spec[e.target.getAttribute("list-name")]
       var item = e.item
       var index = list.indexOf(item)
       list.splice(index, 1)
     }
-    
+
     changeListValue(e) {
       var selectedItem = e.target.options[e.target.selectedIndex]
       var item = e.item
       item.value = selectedItem.value
     }
-    
+
     changeId(e) {
       var selectedItem = e.target.options[e.target.selectedIndex]
-      
+
       if (selectedItem.value == 0) {
         return
       }
-      
+
       this.spec[e.target.name].id = selectedItem.value
     }
-    
+
     editListValue(e) {
       var item = e.item
       item.value = e.target.value
     }
-    
+
     var self = this
-    
-    opts.on('change', function(params) {
+
+    opts.tab.on('change', function(params) {
       self.is_current = (params.current === "Spec")
       self.update()
     })

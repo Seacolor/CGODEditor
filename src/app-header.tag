@@ -15,7 +15,7 @@
     ]
 
     changeTab(e) {
-      opts.change({
+      opts.tab.change({
         current: e.item.name
       })
     }

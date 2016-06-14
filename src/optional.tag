@@ -92,7 +92,7 @@
 
     var self = this
 
-    opts.on('change', function(params) {
+    opts.tab.on('change', function(params) {
       self.is_current = (params.current === "Optional")
       self.update()
     })
