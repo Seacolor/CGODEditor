@@ -9,6 +9,10 @@
 
   <h1>Custom God Editor</h1>
 
+  <div id="header_fixed">
+    <button type="button" class="btn-sm btn-primary" onclick="saveFile()">保存</button>
+  </div>
+
   <app-header></app-header>
 
   <spec></spec>
@@ -18,6 +22,7 @@
   <script src="riot.min.js"></script>
   <script src="node_modules/riot-bootstrap/dist/riot-bootstrap.js"></script>
 
+  <script src="dist/file.js"></script>
   <script src="dist/app-header.js"></script>
   <script src="dist/spec.js"></script>
   <script src="dist/optional.js"></script>
@@ -25,12 +30,54 @@
 
   <script>
     var tab = riot.observable()
-
     tab.change = function(params) {
       tab.trigger('change', params)
     }
 
-    riot.mount('*', tab)
+    var spec = {
+      author: "",
+      name_en: "",
+      name_ja: "",
+      id: "",
+      nickname: "",
+      give: [
+        {id: 204, label: "死体"}
+      ],
+      bonus: [],
+      specialpower: {value: "100 + {attb} / 5 + {faith} / 100"},
+      specialpoweralias: "",
+      foodbonus: [],
+      specialfoodbonus: []
+    }
+    var text = {
+      txtdescription0: "",
+      txtdescription1: "　捧げ物: 死体 / ",
+      txtdescription2: "ボーナス: ",
+      txtdescription3: "特殊能力: ",
+      txtBelieve: "",
+      txtBetrayal: "",
+      txtGive: "",
+      txtMission: "",
+      txtResist: "",
+      txtPresent: "",
+      txtLike: "",
+      txtLove: "",
+      txtWhisper: "",
+      txtWelcome: "",
+      txtNight: "",
+      txtKilled: "",
+      txtAdvent: "",
+      txtMiracle1: "",
+      txtMiracle2: "",
+      txtServantDescription: ""
+    }
+
+    var data = {
+      tab: tab,
+      spec: spec,
+      text: text
+    }
+    riot.mount('*', data)
 
     tab.change({
       current: "Spec"

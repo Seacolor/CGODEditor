@@ -1,17 +1,17 @@
 <optional>
   <section show={ is_current }>
     <h2>Optional</h2>
-    
+
     <h3>Works</h3>
-    
+
     <button type="button" onclick={ addMiracle }>Add</button>
-    
+
     <ul>
       <li each={ optional.miracle }>
         <button  type="button" list-name="miracle" onclick={ parent.removeMiracle }>Remove</button> <a href="#" onclick={ parent.switchMiracle }>{ name_ja }</a>
       </li>
     </ul>
-    
+
     <form if={ current_miracle !== null }>
       <fieldset>
       <legend>Name</legend>
@@ -28,7 +28,7 @@
       </fieldset>
     </form>
   </section>
-  
+
   <script>
     this.ATTRIBUTES = [
 			{id: 0, label: ""},
@@ -43,53 +43,56 @@
     ]
 
     this.is_current = false
-    
+
     this.optional = {
       miracle: []
     }
     this.current_miracle = null
-    
+
     addMiracle(e) {
+      if (this.optional.miracle.length >= 2) {
+        return;
+      }
       this.optional.miracle.push({
         name_en: "God's work",
         name_ja: "神技",
         attribute: 0
       })
     }
-    
+
     removeMiracle(e) {
       this.current_miracle = null
       this.remove(e)
     }
-    
+
     switchMiracle(e) {
       this.current_miracle = e.item
     }
-    
+
     editMiracle(e) {
       this.current_miracle[e.target.name] = e.target.value
     }
-    
+
     changeMiracle(e) {
       var selectedItem = e.target.options[e.target.selectedIndex]
-      
+
       if (selectedItem.value == 0) {
         return
       }
-      
+
       this.current_miracle[e.target.name] = selectedItem.value
     }
-    
+
     remove(e) {
       var list = this.optional[e.target.getAttribute("list-name")]
       var item = e.item
       var index = list.indexOf(item)
       list.splice(index, 1)
     }
-    
+
     var self = this
-    
-    opts.on('change', function(params) {
+
+    opts.tab.on('change', function(params) {
       self.is_current = (params.current === "Optional")
       self.update()
     })

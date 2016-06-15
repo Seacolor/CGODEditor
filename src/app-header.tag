@@ -11,12 +11,11 @@
   <script>
     this.TABS = [
 			{ name: "Spec" },
-      { name: "Optional" },
       { name: "Text" }
     ]
 
     changeTab(e) {
-      opts.change({
+      opts.tab.change({
         current: e.item.name
       })
     }

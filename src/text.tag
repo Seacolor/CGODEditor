@@ -80,28 +80,7 @@
   <script>
     this.is_current = false
 
-    this.text = {
-      txtdescription0: "",
-      txtdescription1: "　捧げ物: 死体 / ",
-      txtdescription2: "ボーナス: ",
-      txtdescription3: "特殊能力: ",
-      txtBelieve: "",
-      txtBetrayal: "",
-      txtGive: "",
-      txtMission: "",
-      txtResist: "",
-      txtPresent: "",
-      txtLike: "",
-      txtLove: "",
-      txtWhisper: "",
-      txtWelcome: "",
-      txtNight: "",
-      txtKilled: "",
-      txtAdvent: "",
-      txtMiracle1: "",
-      txtMiracle2: "",
-      txtServantDescription: ""
-    }
+    this.text = opts.text
 
     edit(e) {
       this.text[e.target.name] = e.target.value
@@ -109,7 +88,7 @@
 
     var self = this
 
-    opts.on('change', function(params) {
+    opts.tab.on('change', function(params) {
       self.is_current = (params.current === "Text")
       self.update()
     })
