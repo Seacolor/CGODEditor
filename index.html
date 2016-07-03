@@ -71,11 +71,15 @@
       txtMiracle2: "",
       txtServantDescription: ""
     }
+    var optional = {
+      miracle: []
+    }
 
     var data = {
       tab: tab,
       spec: spec,
-      text: text
+      text: text,
+      optional: optional
     }
     riot.mount('*', data)
 

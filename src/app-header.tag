@@ -11,6 +11,7 @@
   <script>
     this.TABS = [
 			{ name: "Spec" },
+      { name: "Optional" },
       { name: "Text" }
     ]
 
