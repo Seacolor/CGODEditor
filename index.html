@@ -9,10 +9,6 @@
 
   <h1>Custom God Editor</h1>
 
-  <div id="header_fixed">
-    <button type="button" class="btn-sm btn-primary" onclick="saveFile()">保存</button>
-  </div>
-
   <app-header></app-header>
 
   <spec></spec>
@@ -22,8 +18,11 @@
   <script src="riot.min.js"></script>
   <script src="node_modules/riot-bootstrap/dist/riot-bootstrap.js"></script>
 
-  <script src="dist/file.js"></script>
+  <script src="dist/app-navigator.js"></script>
+  <script src="dist/app-menu.js"></script>
   <script src="dist/app-header.js"></script>
+  <script src="dist/author-field.js"></script>
+  <script src="dist/name-field.js"></script>
   <script src="dist/spec.js"></script>
   <script src="dist/optional.js"></script>
   <script src="dist/text.js"></script>
@@ -32,6 +31,11 @@
     var tab = riot.observable()
     tab.change = function(params) {
       tab.trigger('change', params)
+    }
+    
+    var loader = riot.observable()
+    loader.load = function(params) {
+      loader.trigger('load', params)
     }
 
     var spec = {
@@ -79,7 +83,8 @@
       tab: tab,
       spec: spec,
       text: text,
-      optional: optional
+      optional: optional,
+      loader: loader
     }
     riot.mount('*', data)
 
